@@ -1,0 +1,13 @@
+[package]
+name = "solana-trader-quic-client-rust"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+base64 = "0.22"
+quinn = "0.11"
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12"] }
+rustls-pemfile = "2"
+thiserror = "2"
+tokio = { version = "1", features = ["io-util", "macros", "rt-multi-thread", "time"] }
+webpki-roots = "0.26"
