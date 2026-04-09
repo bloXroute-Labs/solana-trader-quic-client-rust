@@ -1,8 +1,11 @@
 use base64::Engine;
+use solana_trader_quic_client_rust::BlxEndpoint;
 use solana_trader_quic_client_rust::{TraderApiQuicClient, TraderApiQuicClientConfig};
 use std::env;
 use std::fs;
 use std::time::Duration;
+
+const DEFAULT_ENDPOINT: BlxEndpoint = BlxEndpoint::NY;
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -84,7 +87,7 @@ impl SubmissionMode {
 
 impl Args {
     fn parse() -> Result<Self, String> {
-        let mut endpoint = "127.0.0.1:9000".to_string();
+        let mut endpoint = DEFAULT_ENDPOINT.as_str().to_string();
         let mut mode = SubmissionMode::Uni;
         let mut tx_base64 = None;
         let mut tx_file = None;
@@ -151,10 +154,11 @@ fn parse_value(args: &mut impl Iterator<Item = String>, flag: &str) -> Result<St
 }
 
 fn usage() -> String {
-    "\
+    format!(
+        "\
 Usage:
   cargo run --example quic_submit_example -- \
-    --endpoint localhost:9000 \
+    [--endpoint <bloXroute regional endpoint>] \
     [--mode uni|bi|datagram] \
     --tx-base64 <base64 signed tx> \
     --client-cert client.pem \
@@ -163,9 +167,11 @@ Usage:
 Notes:
   Exactly one of --tx-base64 or --tx-file is required.
   --mode defaults to uni.
+  --endpoint defaults to {}.
   --endpoint accepts a hostname or IP, with port 443 used by default.
   --endpoint also accepts explicit host:port or ip:port.
   --tx-file should contain base64-encoded signed transaction bytes.
-"
-    .to_string()
+",
+        DEFAULT_ENDPOINT.as_str()
+    )
 }

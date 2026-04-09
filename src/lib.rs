@@ -326,6 +326,29 @@ fn private_key_from_pem(
     ))
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BlxEndpoint {
+    UK,
+    NY,
+    LA,
+    GERMANY,
+    AMSTERDAM,
+    TOKYO,
+}
+
+impl BlxEndpoint {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::UK => "uk.solana.dex.blxrbdn.com",
+            Self::NY => "ny.solana.dex.blxrbdn.com",
+            Self::LA => "la.solana.dex.blxrbdn.com",
+            Self::GERMANY => "germany.solana.dex.blxrbdn.com",
+            Self::AMSTERDAM => "amsterdam.solana.dex.blxrbdn.com",
+            Self::TOKYO => "tokyo.solana.dex.blxrbdn.com",
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -16,7 +16,7 @@ Important:
 ```rust
 // client configuration
 let config = TraderApiQuicClientConfig::new_from_pem_files(
-	"bloXroute regional endpoint, e.g. ny.solana.dex.blxrbdn.com",
+	BlxEndpoint::XYZ, // replace with desired endpoint
 	"/path/to/external_gateway_cert.pem",
 	"/path/to/external_gateway_key.pem",
 )?;
@@ -52,11 +52,12 @@ The repository includes a runnable example:
 ```bash
 cargo run --example quic_submit_example -- \
   --mode uni \
-  --endpoint ny.solana.dex.blxrbdn.com \
   --tx-file /tmp/txBase64.txt \
   --client-cert /path/to/external_gateway_cert.pem \
   --client-key /path/to/external_gateway_key.pem
 ```
+
+If `--endpoint` is omitted, the example defaults to `ny.solana.dex.blxrbdn.com`.
 
 Available modes:
 
