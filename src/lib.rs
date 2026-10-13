@@ -14,7 +14,7 @@ use thiserror::Error;
 use tokio::time::timeout;
 
 const QUIC_SUBMIT_ALPN: &str = "solana-trader-submit-v1";
-const QUIC_MAX_PAYLOAD_BYTES: usize = 1232;
+const QUIC_MAX_PAYLOAD_BYTES: usize = 4096;
 const DEFAULT_ENDPOINT_PORT: u16 = 443;
 
 #[derive(Debug)]
@@ -362,7 +362,7 @@ mod tests {
         );
 
         assert_eq!(config.endpoint, "localhost:4433");
-        assert_eq!(QUIC_MAX_PAYLOAD_BYTES, 1232);
+        assert_eq!(QUIC_MAX_PAYLOAD_BYTES, 4096);
         assert_eq!(QUIC_SUBMIT_ALPN, "solana-trader-submit-v1");
     }
 }
